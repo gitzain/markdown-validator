@@ -25,7 +25,7 @@ Ultimately all you have to do is provide a schema (XSD file) and a markdown file
 1. Download the files
 2. Navigate to the directory that contains the files from this project
 3. Run `pip3 install -r requirements.txt` to make sure you have all the requirements installed
-4. Run the validator: `python3 validate.py "schema/principal.xsd" "markdown/principal.md"`. The first parameter is the path to the schema, the second is the markdown to be validated. Test files have been provided so this command will work out the box.
+4. Run the validator: `python3 validator.py "schema/principal.xsd" "markdown/principal.md"`. The first parameter is the path to the schema, the second is the markdown to be validated. Test files have been provided so this command will work out the box.
 
 ### Usage
 TODO: Write usage instructions as below and delete this line

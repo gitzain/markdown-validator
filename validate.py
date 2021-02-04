@@ -17,7 +17,7 @@ with open(filename_xsd, 'r') as schema_file:
 
 # Convert markdown to xhtml
 xhtml = markdown.markdown(markdown_text)
-xhtml = "<principal>\n" + xhtml + "\n</principal>"
+xhtml = "<root>\n" + xhtml + "\n</root>"
 
 
 """ # Write out html. Useful for debugging

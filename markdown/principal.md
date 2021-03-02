@@ -1,3 +1,13 @@
+---
+schema: "https://raw.githubusercontent.com/gitzain/markdownvalidator/master/schema/principal.xsd"
+context:
+    context-type: technology
+    asset:
+        asset-type: principal
+        schema: "https://raw.githubusercontent.com/gitzain/markdownvalidator/master/schema/principal.xsd"
+    owner:
+        org: technology
+---
 # Principal Name
 Should both represent the essence of the rule as well as be easy to remember. Specific technology platforms should not be mentioned in the name or statement of a principle. Avoid ambiguous words in the Name and in the Statement such as: "support", "open", "consider", and for lack of good measure the word "avoid", itself, be careful with "manage(ment)", and look for unnecessary adjectives and adverbs (fluff).
 

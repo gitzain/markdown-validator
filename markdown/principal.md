@@ -1,5 +1,4 @@
 ---
-schema: "https://raw.githubusercontent.com/gitzain/markdownvalidator/master/schema/principal.xsd"
 context:
     context-type: technology
     asset:

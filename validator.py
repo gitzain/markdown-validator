@@ -1,4 +1,10 @@
-import markdown, sys, xmlschema, logging, frontmatter, urllib, pathlib, argparse
+import pathlib
+import argparse
+import urllib
+import xmlschema
+import markdown
+import frontmatter
+
 
 def get_markdown_content(markdown_file):
     try:
@@ -7,15 +13,22 @@ def get_markdown_content(markdown_file):
         raise Exception('Error loading markdown file. Make sure the location is correct and you have a valid markdown file.')
 
 
-def markdown_to_xhtml(markdown_file):
-    return "<root>\n" + markdown.markdown(get_markdown_content(markdown_file)) + "\n</root>"
+def markdown_to_xhtml(markdown_content):
+    return "<root>\n" + markdown.markdown(markdown_content) + "\n</root>"
 
 
-def get_schema(filename_md, filename_xsd=None):
+def has_schema(filename_md, filename_xsd=None):
     try:
-        if not filename_xsd:
+        if filename_xsd is None:
             filename_xsd = frontmatter.load(filename_md).metadata['context']['asset']['schema']
+    except:
+        return None
 
+    return filename_xsd
+
+
+def get_schema(filename_xsd):
+    try:
         if ("http://" in filename_xsd) or ("https://" in filename_xsd):
             resource = urllib.request.urlopen(filename_xsd)
             return filename_xsd, resource.read().decode(resource.headers.get_content_charset())
@@ -24,15 +37,8 @@ def get_schema(filename_md, filename_xsd=None):
     except:
         raise Exception('Error loading schema. Make sure the location is correct and you have a valid schema file.')
 
-def validate_xhtml(xhtml, schema):
-    try:
-        xmlschema.validate(xhtml, schema)
-    except Exception as error:
-        raise
 
-
-
-def validate(filename_md, filename_xsd=None, raise_exception=False):
+def validate(filename_md, filename_xsd=None, raise_exception=False, ignore_no_schema=True):
     """
     Provide a schema (XSD file) and a markdown file and
     this function will let you know if the markdown file conforms or not.
@@ -43,22 +49,33 @@ def validate(filename_md, filename_xsd=None, raise_exception=False):
     :return boolean: True or False depending if the file validates or not.
     """
     try:
-        xhtml_to_check = markdown_to_xhtml(filename_md)
-        filename_xsd, schema_to_check = get_schema(filename_md, filename_xsd)
-        validate_xhtml(xhtml_to_check, schema_to_check)
+        markdown_content = get_markdown_content(filename_md)
+        xhtml_to_check = markdown_to_xhtml(markdown_content)
+
+        filename_xsd = has_schema(filename_md, filename_xsd)
+        if filename_xsd is None and ignore_no_schema is True:
+            print("Markdown Validator: Validation successful. " + filename_md + " didn't have a schema to check against")
+            return True
+
+        filename_xsd, schema_to_check = get_schema(filename_xsd)
+
+        xmlschema.validate(xhtml_to_check, schema_to_check)
         print("Markdown Validator: Validation successful. " + filename_md + " conforms to the schema " + filename_xsd)
         return True
     except Exception as error:
+        if raise_exception: 
+            raise
         print("Markdown Validator: Validation FAILED. Details of the error: " + str(error))
-        if raise_exception: raise
         return False
+
 
 if __name__ == "__main__":
     # Entry point to this app if the commandline is used. Don't forget if a python program runs successfully via the commandline then the program exit(0) by default.
     parser = argparse.ArgumentParser()
     parser.add_argument('markdown', help='location of the markdown file')
     parser.add_argument('-s', '--schema', default=None, help='locaiton of the xsd schema file. This can be on disk or on the web')
+    parser.add_argument('-i', '--ignore', action="store_true", default=False, help='if this is set to false and no schema can be found the validator will say the markdown is valid')
     args = parser.parse_args()
 
-    if not validate(args.markdown, args.schema):
+    if not validate(args.markdown, filename_xsd=args.schema, raise_exception=False, ignore_no_schema=args.ignore):
         exit(1)

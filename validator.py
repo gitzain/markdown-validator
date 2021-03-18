@@ -17,10 +17,21 @@ def markdown_to_xhtml(markdown_content):
     return "<root>\n" + markdown.markdown(markdown_content) + "\n</root>"
 
 
+def get_item_in_dictionary(dictionary, key):
+    if key in dictionary:
+        return dictionary[key]
+    for k, v in dictionary.items():
+        if isinstance(v, dict):
+            item = get_item_in_dictionary(v, key)
+            if item is not None:
+                return item
+
+
 def has_schema(filename_md, filename_xsd=None):
     try:
         if filename_xsd is None:
-            filename_xsd = frontmatter.load(filename_md).metadata['context']['asset']['schema']
+            metadata = frontmatter.load(filename_md).metadata
+            filename_xsd = get_item_in_dictionary(metadata, "schema")
     except:
         return None
 

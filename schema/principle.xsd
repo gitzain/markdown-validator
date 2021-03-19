@@ -1,0 +1,12 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<!--All our schema files will need a root element. The root element is not in the original markdown, it is added when we covert the md to xhtml. We need it to have valid xhtml to validate.-->
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:any processContents="skip"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

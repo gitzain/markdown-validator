@@ -80,13 +80,21 @@ def validate(filename_md, filename_xsd=None, raise_exception=False, ignore_no_sc
         return False
 
 
-if __name__ == "__main__":
+def main(args):
     # Entry point to this app if the commandline is used. Don't forget if a python program runs successfully via the commandline then the program exit(0) by default.
     parser = argparse.ArgumentParser()
     parser.add_argument('markdown', help='location of the markdown file')
     parser.add_argument('-s', '--schema', default=None, help='locaiton of the xsd schema file. This can be on disk or on the web')
     parser.add_argument('-i', '--ignore', action="store_true", default=False, help='if this is set to false and no schema can be found the validator will say the markdown is valid')
-    args = parser.parse_args()
+    args = parser.parse_args(args)
 
-    if not validate(args.markdown, filename_xsd=args.schema, raise_exception=False, ignore_no_schema=args.ignore):
+    if validate(args.markdown, filename_xsd=args.schema, raise_exception=False, ignore_no_schema=args.ignore):
+        return True
+    
+    return False
+
+
+if __name__ == "__main__":
+    import sys
+    if not main(sys.argv[1:]):
         exit(1)

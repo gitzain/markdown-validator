@@ -2,11 +2,8 @@
 Want your markdown files to have a certain structure? Create schema (XSD), create your markdown file and both to this tool to see if it validates.
 
 ## Table of content
-
 - [Motivation](#motivation)
 - [Installation & Usage](#installation--usage)
-    - [Installation](#installation)
-    - [Usage](#usage)
 - [Contributing](#contributing)
 - [History](#history)
 - [Credits](#credits)
@@ -20,15 +17,10 @@ Markdown Validator works by converting the markdown file to xhtml which can be v
 Ultimately all you have to do is provide a schema (XSD file) and a markdown file and the tool will let you know if the markdown file conforms or not.
 
 ## Installation & Usage
-
-### Installation
 1. Download the files
 2. Navigate to the directory that contains the files from this project
 3. Run `pip3 install -r requirements.txt` to make sure you have all the requirements installed
 4. Run the validator: `python3 validator.py "schema/principal.xsd" "markdown/principal.md"`. The first parameter is the path to the schema, the second is the markdown to be validated. Test files have been provided so this command will work out the box.
-
-### Usage
-TODO: Write usage instructions as below and delete this line
 
 ## Contributing
 1. Fork it!
@@ -38,9 +30,10 @@ TODO: Write usage instructions as below and delete this line
 5. Submit a pull request :D
 
 ## History
-v1 - Initial release
+29/01/2021: v1 Initial release
 
 ## Credits
+- Created by <a href="https://iamzain.com">Zain Khan</a>.
 - Template for this README is <a href="https://github.com/gitzain/template-README">Template-README</a> created by <a href="https://iamzain.com">Zain Khan</a>
 
 ## License

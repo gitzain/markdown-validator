@@ -1,1 +1,16 @@
-.vscode
+# Ignore Python compiled files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignore virtual environment directory
+venv/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore other common files
+.DS_Store
+*.log

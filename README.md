@@ -1,5 +1,5 @@
 # Markdown Validator
-Want your markdown files to have a certain structure? Create schema (XSD), create your markdown file and both to this tool to see if it validates.
+Ensure your markdown files adhere to a specific structure with Markdown Validator. Create a schema (XSD), create your markdown file, and use this tool to validate its structure.
 
 ## Table of content
 - [Motivation](#motivation)

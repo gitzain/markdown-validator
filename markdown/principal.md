@@ -3,7 +3,7 @@ context:
     context-type: technology
     asset:
         asset-type: principal
-        schema: "https://raw.githubusercontent.com/gitzain/markdownvalidator/master/schema/principal.xsd"
+        schema: "https://raw.githubusercontent.com/gitzain/mdvalidator/master/schema/principal.xsd"
     owner:
         org: technology
 ---
